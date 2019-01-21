@@ -59,3 +59,7 @@ typings/
 
 # next.js build output
 .next
+
+# Intellij
+.idea/
+quote-of-the-day_spec.iml
