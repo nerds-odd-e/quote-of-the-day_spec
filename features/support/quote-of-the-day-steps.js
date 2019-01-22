@@ -6,7 +6,7 @@ Given('there is a quote', function (dataTable) { });
 When('I visit the quote of the day', async function () {
   const browser = await puppeteer.launch({executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'});
   const page = await browser.newPage();
-  await page.goto('https://example.com');
+  await page.goto('http://localhost');
   await browser.close();
 });
 
