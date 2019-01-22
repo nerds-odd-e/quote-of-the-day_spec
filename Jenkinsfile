@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Docker build react') {
             steps {
-                docker build . -t quote-of-the-day_react
+                echo "docker build . -t quote-of-the-day_react"
             }
         }
         stage('Docker build bff') {
