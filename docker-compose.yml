@@ -4,4 +4,4 @@ services:
   frontend:
     image: quote-of-the-day_react
     ports:
-    - "80:80"
+    - "8008:80"
