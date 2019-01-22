@@ -1,19 +1,14 @@
 pipeline {
     agent any
     stages {
-        stage('Docker build react') {
+        stage('Run tests') {
             steps {
-                echo "docker build . -t quote-of-the-day_react"
-            }
-        }
-        stage('Docker build bff') {
-            steps {
-                echo 'Testing..'
+                sh 'make'
             }
         }
         stage('Deploy') {
             steps {
-                echo 'Deploying....'
+                sh 'make deploy'
             }
         }
     }
