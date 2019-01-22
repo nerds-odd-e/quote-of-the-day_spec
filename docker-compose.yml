@@ -1,0 +1,7 @@
+version: '3.4'
+
+services:
+  frontend:
+    image: quote-of-the-day_react
+    ports:
+    - "80:80"
