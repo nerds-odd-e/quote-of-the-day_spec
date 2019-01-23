@@ -1,5 +1,7 @@
 const { Given, When, Then } = require('cucumber')
 const puppeteer = require('puppeteer');
+var mongoClient = require('mongodb').MongoClient;
+var mongoUrl = "mongodb://localhost:27017/";
 
 Given('There are the following quotes', function (dataTable) {
   return 'pending';
