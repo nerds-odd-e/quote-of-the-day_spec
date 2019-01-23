@@ -3,7 +3,7 @@
 all: test
 
 load-env: docker-compose.yml
-	docker-compose up -d
+	docker-compose up -d --build
 
 node_modules: package.json
 	yarn install 
