@@ -5,14 +5,14 @@ services:
     build: ../quote-of-the-day_react
     image: ci.odd-e.com:5000/quote-of-the-day_react
     ports:
-      - "3000:80"
+      - "7008:80"
     links:
       - bff
   bff:
     build: ../quote-of-the-day_bff
     image: ci.odd-e.com:5000/bff
     ports:
-      - "8080:8080"
+      - "7088:8080"
     links:
       - backend
   backend:
