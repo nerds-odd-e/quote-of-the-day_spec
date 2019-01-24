@@ -19,7 +19,7 @@ Given('The following random quotes map to the days', function (dataTable) {
   this.insertDaysWithQuotesIntoDatabase(dataTable);
 });
 
-When('I visit QOFT', async () => {
+When('I visit QOFT', async function () {
   await this.gotoQOTDMainPage();
 });
 
