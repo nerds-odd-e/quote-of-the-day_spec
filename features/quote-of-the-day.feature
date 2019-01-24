@@ -2,7 +2,7 @@ Feature: Quote of the day site shows new quotes every day
 
   Background:
     Given There are the following quotes
-      | ID | Quote | Author | Location | Date | Languaghe | Contributor | Date of Contribution |
+      | ID | Quote | Author | Location | Date | Language | Contributor | ContributionDate |
       | 1 | What is essential is invisible to the eyes | Antoine de Saint-Exupéry | Little Prince | 1943 | English | Terry | 21 January 2019 |
       | 2 | Imitation is suicide. | Ralph Waldo Emerson | Essays: First Series | 1841 | English | Ivan | 22 January 2019 |
       | 3 | I'm sorry, Dave. I'm afraid I can't do that. | HAL | 2001: A Space Oddesy | 1968 | English | Bas | 22 January 2019 |

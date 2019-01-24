@@ -1,10 +1,26 @@
-const { Given, When, Then } = require('cucumber')
+const { BeforeAll, AfterAll, Given, When, Then } = require('cucumber')
 const puppeteer = require('puppeteer');
-var mongoClient = require('mongodb').MongoClient;
+var MongoClient = require('mongodb').MongoClient;
 var mongoUrl = "mongodb://localhost:27017/";
 
-Given('There are the following quotes', function (dataTable) {
-  return 'pending';
+const mongoClient = new MongoClient(mongoUrl);
+var db;
+
+BeforeAll( async function() {
+  try {
+    await mongoClient.connect();
+    db = mongoClient.db('quotes-database');
+  } catch (err) {
+    console.log(err.stack);
+  }
+});
+
+AfterAll( async function() {
+  mongoClient.close();
+});
+
+Given('There are the following quotes', async function (dataTable) {
+    db.collection('quotes').insertMany(dataTable.hashes());
 });
 
 Given('The following random quotes map to the days', function (dataTable) {
