@@ -16,3 +16,10 @@ deploy-test:
 
 deploy:
 	docker-compose -f docker-compose-prod.yml up -d
+
+pull-rebase-all:
+	cd ../quote-of-the-day_backend && git pull --rebase
+	cd ../quote-of-the-day_bff && git pull --rebase
+	cd ../quote-of-the-day_react && git pull --rebase
+	cd ../quote-of-the-day_spec && git pull --rebase
+
