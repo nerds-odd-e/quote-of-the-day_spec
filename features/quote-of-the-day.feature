@@ -21,28 +21,28 @@ Feature: Quote of the day site shows new quotes every day
 
   Scenario: There is a random quote on the QOTD page
     When I visit QOFT on "22 January 2019"
-    Then I should see the "What is essential is invisible to the eyes"
+    Then I should see "What is essential is invisible to the eyes"
     And I should see "-- Antoine de Saint-Exupéry"
 
   Scenario: The same quote will appear on the same day
     When I visit QOFT on "23 January 2019"
-    Then I should see the "Immitation is suicide."
+    Then I should see "Immitation is suicide."
     And When I refresh
-    Then I should see the "Immitation is suicide."
+    Then I should see "Immitation is suicide."
 
   Scenario: The next day should be a new quote
     When I visit QOFT on "22 January 2019"
-    Then I should see the "What is essential is invisible to the eyes"
+    Then I should see "What is essential is invisible to the eyes"
     And When I wait One Day and refresh
     Then I should see "Immitation is suicide"
 
   Scenario: When I visit in Dutch, I should get Dutch quotes
     When I visit QOFT on "22 January 2019"
     And my Browser Language is "Dutch"
-    Then I should see the "Wij accepteren u zoals ik ben."
+    Then I should see "Wij accepteren u zoals ik ben."
 
   Scenario: When I visit in a language that doesn't have quote, default to English
     When I visit QOFT on "22 January 2019"
     And my Browser Language is "Thai"
-    Then I should see the "What is essential is invisible to the eyes"
+    Then I should see "What is essential is invisible to the eyes"
 

@@ -3,21 +3,21 @@ version: '3.4'
 services:
   frontend:
     build: ../quote-of-the-day_react
-    image: quote-of-the-day_react
+    image: ci.odd-e.com:5000/quote-of-the-day_react
     ports:
       - "8008:80"
     links:
       - bff
   bff:
     build: ../quote-of-the-day_bff
-    image: bff
+    image: ci.odd-e.com:5000/bff
     ports:
       - "8080:8080"
     links:
       - backend
   backend:
     build: ../quote-of-the-day_backend
-    image: backend
+    image: ci.odd-e.com:5000/backend
     links:
       - mongo
   mongo:

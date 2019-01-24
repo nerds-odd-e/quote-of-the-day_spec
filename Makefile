@@ -2,11 +2,14 @@
 
 all: test
 
-load-env: docker-compose.yml
-	docker-compose up -d --build
-
 node_modules: package.json
-	yarn install 
+	yarn install
 
-test: load-env node_modules
+test: node_modules
 	yarn test
+
+build:
+	docker-compose build
+
+deploy:
+	docker-compose up -d
