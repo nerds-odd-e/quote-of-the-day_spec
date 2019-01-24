@@ -2,6 +2,8 @@ version: '2.0'
 
 services:
   frontend:
+    environment:
+      - REACT_APP_BFF_ENDPOINT=localhost:7088
     build: ../quote-of-the-day_react
     image: ci.odd-e.com:5000/quote-of-the-day_react
     ports:
