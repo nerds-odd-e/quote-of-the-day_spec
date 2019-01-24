@@ -12,7 +12,7 @@ test: load-env node_modules
 	yarn test
 
 build_images:
-  docker-compose build && docker-compose push
+	docker-compose build && docker-compose push
 
 deploy:
-  docker-compose up
+	docker-compose up -d
