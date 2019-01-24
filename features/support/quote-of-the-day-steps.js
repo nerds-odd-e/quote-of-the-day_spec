@@ -1,4 +1,4 @@
-const { BeforeAll, AfterAll, Given, When, Then } = require('cucumber')
+const { Before, BeforeAll, AfterAll, Given, When, Then } = require('cucumber')
 const puppeteer = require('puppeteer');
 var MongoClient = require('mongodb').MongoClient;
 var mongoUrl = "mongodb://localhost:27017/";
@@ -6,55 +6,58 @@ var mongoUrl = "mongodb://localhost:27017/";
 const mongoClient = new MongoClient(mongoUrl);
 var db;
 
-BeforeAll( async function() {
-  try {
-    await mongoClient.connect();
-    db = mongoClient.db('quotes-database');
-  } catch (err) {
-    console.log(err.stack);
-  }
+BeforeAll( async () => {
+  await mongoClient.connect();
+  db = mongoClient.db('quotes-database');
 });
 
-AfterAll( async function() {
+AfterAll( async () => {
+  await db.dropDatabase();
   mongoClient.close();
 });
 
-Given('There are the following quotes', async function (dataTable) {
-    db.collection('quotes').insertMany(dataTable.hashes());
+Before( () => {
+    return db.dropDatabase().then( () => {
+      db = mongoClient.db('quotes-database');
+    })
 });
 
-Given('The following random quotes map to the days', function (dataTable) {
-  return 'pending';
+Given('There are the following quotes', async (dataTable) => {
+  return db.collection('quotes').insertMany(dataTable.hashes());
 });
 
-When('I visit QOFT', async function () {
+Given('The following random quotes map to the days', (dataTable) => {
+  return db.collection('days-with-quotes').insertMany(dataTable.hashes());
+});
+
+When('I visit QOFT', async () => {
   const browser = await puppeteer.launch({executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'});
   const page = await browser.newPage();
   await page.goto('http://localhost:8008');
   await browser.close();
 });
 
-Then('I should be welcomed with {string}', function (string) {
+Then('I should be welcomed with {string}', (string) => {
   return 'pending';
 });
 
-When('I visit QOFT on {string}', function (string) {
+When('I visit QOFT on {string}', (string) => {
   return 'pending';
 });
 
-Then('I should see {string}', function (string) {
+Then('I should see {string}', (string) => {
   return 'pending';
 });
 
-Then('When I refresh', function () {
+Then('When I refresh', () => {
   return 'pending';
 });
 
-Then('When I wait One Day and refresh', function () {
+Then('When I wait One Day and refresh', () => {
   return 'pending';
 });
 
-When('my Browser Language is {string}', function (string) {
+When('my Browser Language is {string}', (string) => {
   return 'pending';
 });
 
