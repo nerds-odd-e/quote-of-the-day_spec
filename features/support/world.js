@@ -45,9 +45,21 @@ class QOTDMainPage {
     this.browser = browser;
   }
 
-  async  go() {
+  setVisitDate(date) {
+    this.visitDate = date;
+  }
+
+  async go() {
     this.page = await this.browser.newPage();
     await this.page.goto('http://localhost:7008');
+  }
+
+  async getWelcomeMessage() {
+    return await this.page.$eval('#welcome-message', el => el.textContent);
+  }
+
+  async getQuote() {
+    return await this.page.$eval('#quote-of-the-day', el => el.textContent);
   }
 };
 
@@ -68,11 +80,26 @@ class QOTDWorld {
     this.browser.close();
   }
 
+  setBrowserLanguage() {
+  }
+
+  refreshBrowser() {
+  }
+
   //// Main QOTD
   //
   async gotoQOTDMainPage() {
     this.mainPage.setBrowser(this.browser);
     await this.mainPage.go();
+  }
+
+  async gotoQOTDMainPageOnDate(date) {
+    await this.mainPage.setVisitDate(date);
+    await this.gotoQOTDMainPage();
+  }
+
+  getMainPage() {
+    return this.mainPage;
   }
 
   //// Mongo Stuff
