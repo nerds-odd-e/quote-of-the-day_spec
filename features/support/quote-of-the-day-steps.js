@@ -33,7 +33,7 @@ Given('The following random quotes map to the days', (dataTable) => {
 When('I visit QOFT', async () => {
   const browser = await puppeteer.launch({executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'});
   const page = await browser.newPage();
-  await page.goto('http://localhost:8008');
+  await page.goto('http://localhost:7008');
   await browser.close();
 });
 
@@ -60,5 +60,3 @@ Then('When I wait One Day and refresh', () => {
 When('my Browser Language is {string}', (string) => {
   return 'pending';
 });
-
-
