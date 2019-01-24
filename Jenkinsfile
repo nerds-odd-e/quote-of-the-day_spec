@@ -1,10 +1,13 @@
 node('master') {
+    dir('quote-of-the-day_spec') {
+        git url: 'https://github.com/nerds-odd-e/quote-of-the-day_spec.git'
+    }
     dir('quote-of-the-day_backend') {
         git url: 'https://github.com/nerds-odd-e/quote-of-the-day_backend.git'
     }
 
     stage('Deploy') {
-        sh 'make deploy'
+        sh 'cd quote-of-the-day_spec && make deploy'
     }
 }
 //     stages {
