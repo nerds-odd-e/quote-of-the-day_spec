@@ -1,19 +1,14 @@
 pipeline {
-    agent {
-        node {
-            dir('quote-of-the-day_backend') {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
                 git url: 'https://github.com/nerds-odd-e/quote-of-the-day_backend.git'
-            }
-            dir('quote-of-the-day_bff') {
                 git url: 'https://github.com/nerds-odd-e/quote-of-the-day_bff.git'
-            }
-            dir('quote-of-the-day_react') {
                 git url: 'https://github.com/nerds-odd-e/quote-of-the-day_react.git'
             }
         }
-    }
-
-    stages {
         stage('Run tests') {
             steps {
                 sh 'make'
