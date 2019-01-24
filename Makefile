@@ -5,7 +5,7 @@ all: test
 node_modules: package.json
 	yarn install
 
-test: load-env node_modules
+test: node_modules
 	yarn test
 
 build:
