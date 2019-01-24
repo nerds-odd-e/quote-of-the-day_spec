@@ -1,40 +1,26 @@
-const { Before, BeforeAll, AfterAll, Given, When, Then } = require('cucumber')
+const { After, Before, BeforeAll, AfterAll, Given, When, Then } = require('cucumber')
 const puppeteer = require('puppeteer');
-var MongoClient = require('mongodb').MongoClient;
-var mongoUrl = "mongodb://localhost:27017/";
 
-const mongoClient = new MongoClient(mongoUrl);
-var db;
-
-BeforeAll( async () => {
-  await mongoClient.connect();
-  db = mongoClient.db('quotes-database');
+Before( async function() {
+  await this.connectToMongoAndCreateDatabase();
+  await this.openBrowser();
 });
 
-AfterAll( async () => {
-  await db.dropDatabase();
-  mongoClient.close();
+After( function() {
+  this.dropDatabaseAndDisconnect();
+  this.closeBrowser();
 });
 
-Before( () => {
-    return db.dropDatabase().then( () => {
-      db = mongoClient.db('quotes-database');
-    })
+Given('There are the following quotes', function (dataTable) {
+  this.insertQuotesIntoDatabase(dataTable);
 });
 
-Given('There are the following quotes', async (dataTable) => {
-  return db.collection('quotes').insertMany(dataTable.hashes());
-});
-
-Given('The following random quotes map to the days', (dataTable) => {
-  return db.collection('days-with-quotes').insertMany(dataTable.hashes());
+Given('The following random quotes map to the days', function (dataTable) {
+  this.insertDaysWithQuotesIntoDatabase(dataTable);
 });
 
 When('I visit QOFT', async () => {
-  const browser = await puppeteer.launch({executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'});
-  const page = await browser.newPage();
-  await page.goto('http://localhost:7008');
-  await browser.close();
+  await this.gotoQOTDMainPage();
 });
 
 Then('I should be welcomed with {string}', (string) => {
