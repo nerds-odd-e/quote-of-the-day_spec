@@ -5,7 +5,7 @@ all: test
 node_modules: package.json
 	yarn install
 
-test: build-test node_modules deploy-test run-test shutdown-test
+test: node_modules deploy-test run-test shutdown-test
 
 run-test:
 	yarn test
@@ -13,16 +13,22 @@ run-test:
 shutdown-test:
 	docker-compose -f docker-compose/test/docker-compose.yml down
 
+build-dev:
+	docker-compose -f docker-compose/dev/docker-compose.yml build
+
 build-test:
 	docker-compose -f docker-compose/test/docker-compose.yml build
 
-deploy-dev:
+build-prod:
+	docker-compose -f docker-compose/prod/docker-compose.yml build
+
+deploy-dev: build-dev
 	docker-compose -f docker-compose/dev/docker-compose.yml up
 
-deploy-test:
+deploy-test: build-test
 	docker-compose -f docker-compose/test/docker-compose.yml up -d
 
-deploy:
+deploy: build-prod
 	docker-compose -f docker-compose/prod/docker-compose.yml up -d
 
 pull-rebase-all:
