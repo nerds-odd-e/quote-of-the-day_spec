@@ -2,10 +2,13 @@
 
 all: test
 
+build-images:
+	docker-compose -f docker-compose/test/docker-compose.yml build
+
 node_modules: package.json
 	yarn install
 
-test: node_modules deploy-test run-test shutdown-test
+test: build-images node_modules deploy-test run-test shutdown-test
 
 run-test:
 	yarn test
