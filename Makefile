@@ -10,8 +10,14 @@ test: node_modules deploy-test run-test shutdown-test
 run-test:
 	yarn test
 
+shutdown-dev:
+	docker-compose -f docker-compose/dev/docker-compose.yml down
+
 shutdown-test:
 	docker-compose -f docker-compose/test/docker-compose.yml down
+
+shutdown-prod:
+	docker-compose -f docker-compose/prod/docker-compose.yml down
 
 build-dev:
 	docker-compose -f docker-compose/dev/docker-compose.yml build
@@ -19,7 +25,7 @@ build-dev:
 build-test:
 	docker-compose -f docker-compose/test/docker-compose.yml build
 
-build-prod:
+build:
 	docker-compose -f docker-compose/prod/docker-compose.yml build
 
 deploy-dev: build-dev
@@ -28,7 +34,7 @@ deploy-dev: build-dev
 deploy-test: build-test
 	docker-compose -f docker-compose/test/docker-compose.yml up -d
 
-deploy: build-prod
+deploy: build
 	docker-compose -f docker-compose/prod/docker-compose.yml up -d
 
 pull-rebase-all:

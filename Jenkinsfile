@@ -12,9 +12,9 @@ node('master') {
         git url: 'https://github.com/nerds-odd-e/quote-of-the-day_react.git'
     }
 
-    // stage('Run tests') {
-    //     sh 'cd quote-of-the-day_spec && make test'
-    // }
+    stage('Run tests') {
+        sh 'cd quote-of-the-day_spec && make test'
+    }
     stage('Build') {
         sh 'cd quote-of-the-day_spec && make build'
     }
