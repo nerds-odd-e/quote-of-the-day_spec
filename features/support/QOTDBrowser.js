@@ -1,10 +1,11 @@
 const { QOTDMainPage } = require("./QOTDMainPage");
 const puppeteer = require('puppeteer');
+const chromiumPath = process.env.CHROMIUM_PATH || '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
 
 class QOTDBrowser {
 
     async open() {
-        this.browser = await puppeteer.launch({ executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' });
+      this.browser = await puppeteer.launch({ executablePath: `${chromiumPath}` });
     }
 
     close() {
