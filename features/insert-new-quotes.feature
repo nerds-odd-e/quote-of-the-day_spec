@@ -1,6 +1,7 @@
 
 Feature: Contribute new Quote of the Day
 
+  @wip
   Scenario: Contribute a new Quote of the Day in a complete fresh database
     When I visit the contribute quote page
     And I contribute quote
@@ -8,6 +9,7 @@ Feature: Contribute new Quote of the Day
       | Imitation is suicide. | Ralph Waldo Emerson | Essays: First Series | 1841 | English | Ivan | 22 January 2019 |
     Then the "immitation is suicide." quote should be in the database
 
+  @wip
   Scenario: Contribute a new Quote of the Day when there are already quotes in the database
     Given current quotes in the database
       | ID | Quote | Author | Location | Date | Language | Contributor | ContributionDate |
