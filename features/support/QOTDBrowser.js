@@ -5,7 +5,7 @@ const chromiumPath = process.env.CHROMIUM_PATH || '/Applications/Google Chrome.a
 class QOTDBrowser {
 
     async open() {
-      this.browser = await puppeteer.launch({ executablePath: `${chromiumPath}` });
+      this.browser = await puppeteer.launch({ executablePath: `${chromiumPath}`, args: ['--no-sandbox'] });
     }
 
     close() {
