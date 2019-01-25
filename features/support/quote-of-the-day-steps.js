@@ -1,8 +1,11 @@
 const { After, Before, BeforeAll, AfterAll, Given, When, Then } = require('cucumber')
 const { expect } = require("chai");
 const { QOTDMongoClient } = require("./QOTDMongoClient");
+const { QOTDBrowser } = require("./QOTDBrowser");
 
 var mongoClient = new QOTDMongoClient();
+var browser = new QOTDBrowser();
+var mainPage;
 
 BeforeAll( async function() {
   await mongoClient.connect();
@@ -15,13 +18,13 @@ AfterAll(async function() {
 Before( async function() {
   mongoClient.createDatabase();
 
-  await this.openBrowser();
+  await browser.open();
 });
 
 After( async function() {
   await mongoClient.dropDatabase();
 
-  this.closeBrowser();
+  browser.close();
 });
 
 Then('the amount of quotes should be {int}', async function (count) {
@@ -41,25 +44,25 @@ Given('The following random quotes map to the days', async function (dataTable) 
 });
 
 When('I visit QOFT', async function () {
-  await this.gotoQOTDMainPage();
+  mainPage = await browser.gotoMainPage();
 });
 
 Then('I should be welcomed with {string}', async function (welcome_message) {
-  const actual_welcome_message = await this.getMainPage().getWelcomeMessage();
+  const actual_welcome_message = await mainPage.getWelcomeMessage();
   expect(actual_welcome_message).to.equal(welcome_message);
 });
 
 When('I visit QOFT on {string}', async function (date) {
-  await this.gotoQOTDMainPageOnDate(date);
+  mainPage = await browser.gotoMainPageOnDate(date);
 });
 
 Then('I should see {string}', async function (quote) {
-  const actual_quote = await this.getMainPage().getQuote();
+  const actual_quote = await mainPage.getQuote();
   expect(actual_quote).to.equal(quote);
 });
 
 Then('When I refresh', function () {
-  this.refreshBrowser();
+  mainPage = browser.refresh();
 });
 
 Then('When I wait One Day and refresh', function () {
@@ -67,5 +70,5 @@ Then('When I wait One Day and refresh', function () {
 });
 
 When('my Browser Language is {string}', function (language) {
-  this.setBrowserLanguage();
+  browser.setLanguage();
 });
