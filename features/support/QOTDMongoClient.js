@@ -1,12 +1,10 @@
 
 class QOTDMongoClient {
 
-    constructor() {
-        this.MongoClient = require('mongodb').MongoClient;
-        this.mongoClient = this.MongoClient("mongodb://localhost:27017/");
-    }
-
     async connect() {
+        var MongoClient = require('mongodb').MongoClient;
+        this.mongoClient = MongoClient("mongodb://localhost:27017/");
+
         await this.mongoClient.connect();
     }
 
@@ -22,15 +20,6 @@ class QOTDMongoClient {
 
     createDatabase() {
         this.mongoDB = this.mongoClient.db('quotes-database');
-    }
-
-    async connectToMongoAndCreateDatabase() {
-        await this.connect();
-        this.createDatabase();
-    }
-    async dropDatabaseAndDisconnect() {
-        await this.dropDatabase();
-        this.disconnect();
     }
 
     async countQuotesFromDatabase(count) {

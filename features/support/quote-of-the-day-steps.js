@@ -1,30 +1,43 @@
 const { After, Before, BeforeAll, AfterAll, Given, When, Then } = require('cucumber')
 const { expect } = require("chai");
+const { QOTDMongoClient } = require("./QOTDMongoClient");
+
+var mongoClient = new QOTDMongoClient();
+
+BeforeAll( async function() {
+  await mongoClient.connect();
+});
+
+AfterAll(async function() {
+  await mongoClient.disconnect();
+});
 
 Before( async function() {
-  await this.mongo.connectToMongoAndCreateDatabase();
+  mongoClient.createDatabase();
+
   await this.openBrowser();
 });
 
-After( function() {
-  this.mongo.dropDatabaseAndDisconnect();
+After( async function() {
+  await mongoClient.dropDatabase();
+
   this.closeBrowser();
 });
 
 Then('the amount of quotes should be {int}', async function (count) {
-  expect(await this.mongo.countQuotesFromDatabase()).to.equal(count);
+  expect(await mongoClient.countQuotesFromDatabase()).to.equal(count);
 });
 
 Then('the amount of mapping should be {int}', async function (count) {
-  expect(await this.mongo.countDaysWithQuotesFromDatabase()).to.equal(count);
+  expect(await mongoClient.countDaysWithQuotesFromDatabase()).to.equal(count);
 });
 
 Given('There are the following quotes', async function (dataTable) {
-  await this.mongo.insertQuotesIntoDatabase(dataTable);
+  await mongoClient.insertQuotesIntoDatabase(dataTable);
 });
 
 Given('The following random quotes map to the days', async function (dataTable) {
-  await this.mongo.insertDaysWithQuotesIntoDatabase(dataTable);
+  await mongoClient.insertDaysWithQuotesIntoDatabase(dataTable);
 });
 
 When('I visit QOFT', async function () {

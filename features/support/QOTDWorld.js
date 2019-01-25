@@ -1,10 +1,8 @@
-const { QOTDMongoClient } = require("./QOTDMongoClient");
 const { QOTDMainPage } = require("./QOTDMainPage");
 const puppeteer = require('puppeteer');
 
 class QOTDWorld {
     constructor() {
-        this.mongo = new QOTDMongoClient();
         this.mainPage = new QOTDMainPage();
     }
     //// Browser
