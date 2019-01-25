@@ -10,8 +10,8 @@ test: node_modules deploy-test run-test shutdown-test
 run-test:
 	yarn test
 
-shutdown-test: run-test
-	docker-compose down
+shutdown-test:
+	docker-compose -f docker-compose/test/docker-compose.yml down
 
 build:
 	docker-compose build
@@ -20,10 +20,10 @@ deploy-dev:
 	docker-compose up -d
 
 deploy-test:
-	docker-compose -f docker-compose-test.yml up -d
+	docker-compose -f docker-compose/test/docker-compose.yml up -d
 
 deploy:
-	docker-compose -f docker-compose-prod.yml up -d
+	docker-compose -f docker-compose/prod/docker-compose.yml up -d
 
 pull-rebase-all:
 	cd ../quote-of-the-day_backend && git pull --rebase

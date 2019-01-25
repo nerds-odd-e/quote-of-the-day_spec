@@ -2,21 +2,21 @@ version: '2.0'
 
 services:
   frontend:
-    build: ../quote-of-the-day_react
+    build: ../../../quote-of-the-day_react
     image: ci.odd-e.com:5000/quote-of-the-day_react
     ports:
       - "8008:80"
     links:
       - bff
   bff:
-    build: ../quote-of-the-day_bff
+    build: ../../../quote-of-the-day_bff
     image: ci.odd-e.com:5000/bff
     ports:
       - "8088:8080"
     links:
       - backend
   backend:
-    build: ../quote-of-the-day_backend
+    build: ../../../quote-of-the-day_backend
     image: ci.odd-e.com:5000/backend
     links:
       - mongo
