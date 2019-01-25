@@ -1,9 +1,10 @@
-const { MongoDBWorld } = require("./MongoDBWorld");
+const { QOTDMongoClient } = require("./QOTDMongoClient");
 const { QOTDMainPage } = require("./QOTDMainPage");
 const puppeteer = require('puppeteer');
+
 class QOTDWorld {
     constructor() {
-        this.mongo = new MongoDBWorld();
+        this.mongo = new QOTDMongoClient();
         this.mainPage = new QOTDMainPage();
     }
     //// Browser
@@ -29,21 +30,6 @@ class QOTDWorld {
     }
     getMainPage() {
         return this.mainPage;
-    }
-    //// Mongo Stuff
-    async connectToMongoAndCreateDatabase() {
-        await this.mongo.connect();
-        this.mongo.createDatabase();
-    }
-    async dropDatabaseAndDisconnect() {
-        await this.mongo.dropDatabase();
-        this.mongo.disconnect();
-    }
-    async insertQuotesIntoDatabase(dataTable) {
-        await this.mongo.insertQuotesIntoDatabase(dataTable);
-    }
-    async insertDaysWithQuotesIntoDatabase(dataTable) {
-        await this.mongo.insertDaysWithQuotesIntoDatabase(dataTable);
     }
 }
 exports.QOTDWorld = QOTDWorld;

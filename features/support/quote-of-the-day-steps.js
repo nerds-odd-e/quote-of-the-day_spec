@@ -1,23 +1,22 @@
 const { After, Before, BeforeAll, AfterAll, Given, When, Then } = require('cucumber')
-const puppeteer = require('puppeteer');
 const { expect } = require("chai");
 
 Before( async function() {
-  await this.connectToMongoAndCreateDatabase();
+  await this.mongo.connectToMongoAndCreateDatabase();
   await this.openBrowser();
 });
 
 After( function() {
-  this.dropDatabaseAndDisconnect();
+  this.mongo.dropDatabaseAndDisconnect();
   this.closeBrowser();
 });
 
 Given('There are the following quotes', function (dataTable) {
-  this.insertQuotesIntoDatabase(dataTable);
+  this.mongo.insertQuotesIntoDatabase(dataTable);
 });
 
 Given('The following random quotes map to the days', function (dataTable) {
-  this.insertDaysWithQuotesIntoDatabase(dataTable);
+  this.mongo.insertDaysWithQuotesIntoDatabase(dataTable);
 });
 
 When('I visit QOFT', async function () {
