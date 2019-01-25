@@ -1,3 +1,4 @@
+const { Quote } = require("./quote")
 
 class QOTDMongoClient {
 
@@ -40,6 +41,16 @@ class QOTDMongoClient {
 
     async insertDaysWithQuotesIntoDatabase(dataTable) {
         await this.insertCollectionIntoDatabase('days-with-quotes', dataTable);
+    }
+
+    async findQuote(text) {
+      var quote = await this.mongoDB.collection('quotes').findOne({ Quote: text });
+      return new Quote(quote);
+    }
+
+    async getFirstQuote() {
+      var quote = await this.mongoDB.collection('quotes').findOne();
+      return new Quote(quote);
     }
 }
 exports.QOTDMongoClient = QOTDMongoClient;

@@ -1,4 +1,5 @@
 const { QOTDMainPage } = require("./QOTDMainPage");
+const { QOTDContributeQuotePage } = require("./QOTDContributeQuotePage");
 const puppeteer = require('puppeteer');
 const chromiumPath = process.env.CHROMIUM_PATH || '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
 
@@ -31,6 +32,12 @@ class QOTDBrowser {
     async gotoMainPageOnDate(date) {
         await this.setVisitDate(date);
         return await this.gotoMainPage();
+    }
+
+    async gotoContributeQuotePage() {
+        var page = await this.browser.newPage();
+        await page.goto('http://localhost:7008/#create');
+        return new QOTDContributeQuotePage(this.browser, page);
     }
 }
 
