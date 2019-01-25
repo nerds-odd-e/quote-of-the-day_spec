@@ -7,8 +7,13 @@ node_modules: package.json
 
 test: node_modules deploy-test run-test shutdown-test
 
+test-not-wip: node_modules deploy-test run-test-not-wip shutdown-test
+
 run-test:
 	yarn test
+
+run-test-not-wip:
+	yarn test --tags "not @wip"
 
 shutdown-dev:
 	docker-compose -f docker-compose/dev/docker-compose.yml down
