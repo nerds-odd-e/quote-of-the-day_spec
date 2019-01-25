@@ -6,7 +6,7 @@ const { QOTDBrowser } = require("./QOTDBrowser");
 
 var mongoClient = new QOTDMongoClient();
 var browser = new QOTDBrowser();
-var createPage;
+var contributePage;
 
 BeforeAll( async function() {
   await mongoClient.connect();
@@ -29,11 +29,11 @@ After( async function() {
 });
 
 When('I visit the contribute quote page', async function () {
-  createPage = await browser.gotoContributeQuotePage();
+  contributePage = await browser.gotoContributeQuotePage();
 });
 
 When('I contribute quote', function (dataTable) {
-  createPage.contributeQuote(dataTable);
+  contributePage.contributeQuote(dataTable);
 });
 
 Then('the {string} quote should be in the database', async function (quote) {
