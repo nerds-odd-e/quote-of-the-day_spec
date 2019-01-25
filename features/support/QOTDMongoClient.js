@@ -34,9 +34,6 @@ class QOTDMongoClient {
     }
 
     async countQuotesFromDatabase(count) {
-      this.mongoDB.collection('quotes').find().forEach( function (doc) {
-        console.log(doc);
-      });
       return await this.mongoDB.collection('quotes').countDocuments();
     }
 
