@@ -15,6 +15,10 @@ Feature: Quote of the day site shows new quotes every day
       | 22 Feburary 2019 | 3 |
       | 22 January 2020 | 3 |
 
+  Scenario: Spec has the right amount of records in the database
+    Then the amount of quotes should be 5
+    And the amount of mapping should be 4
+
   Scenario: QOTD welcomes quote seekers
     When I visit QOFT
     Then I should be welcomed with "Welcome Quote Seeker"
