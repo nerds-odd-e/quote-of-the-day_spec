@@ -3,7 +3,7 @@
 all: test
 
 node_modules: package.json
-	npm i -g yarn && yarn install
+	yarn install
 
 test: node_modules deploy-test run-test shutdown-test
 
