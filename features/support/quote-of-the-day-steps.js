@@ -11,12 +11,20 @@ After( function() {
   this.closeBrowser();
 });
 
-Given('There are the following quotes', function (dataTable) {
-  this.mongo.insertQuotesIntoDatabase(dataTable);
+Then('the amount of quotes should be {int}', async function (count) {
+  expect(await this.mongo.countQuotesFromDatabase()).to.equal(count);
 });
 
-Given('The following random quotes map to the days', function (dataTable) {
-  this.mongo.insertDaysWithQuotesIntoDatabase(dataTable);
+Then('the amount of mapping should be {int}', async function (count) {
+  expect(await this.mongo.countDaysWithQuotesFromDatabase()).to.equal(count);
+});
+
+Given('There are the following quotes', async function (dataTable) {
+  await this.mongo.insertQuotesIntoDatabase(dataTable);
+});
+
+Given('The following random quotes map to the days', async function (dataTable) {
+  await this.mongo.insertDaysWithQuotesIntoDatabase(dataTable);
 });
 
 When('I visit QOFT', async function () {

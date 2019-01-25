@@ -33,8 +33,19 @@ class QOTDMongoClient {
         this.disconnect();
     }
 
+    async countQuotesFromDatabase(count) {
+      this.mongoDB.collection('quotes').find().forEach( function (doc) {
+        console.log(doc);
+      });
+      return await this.mongoDB.collection('quotes').countDocuments();
+    }
+
+    async countDaysWithQuotesFromDatabase(count) {
+      return await this.mongoDB.collection('days-with-quotes').countDocuments();
+    }
+
     async insertCollectionIntoDatabase(collection, dataTable) {
-        await this.mongoDB.collection('quotes').insertMany(dataTable.hashes());
+        await this.mongoDB.collection(collection).insertMany(dataTable.hashes());
     }
 
     async insertQuotesIntoDatabase(dataTable) {
