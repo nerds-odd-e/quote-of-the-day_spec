@@ -17,7 +17,7 @@ build:
 	docker-compose build
 
 deploy-dev:
-	docker-compose up -d
+	docker-compose -f docker-compose/dev/docker-compose.yml up
 
 deploy-test:
 	docker-compose -f docker-compose/test/docker-compose.yml up -d

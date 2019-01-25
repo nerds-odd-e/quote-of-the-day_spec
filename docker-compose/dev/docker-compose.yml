@@ -3,7 +3,7 @@ version: '2.4'
 services:
   frontend:
     build:
-      context: ../quote-of-the-day_react
+      context: ../../../quote-of-the-day_react
       args:
         REACT_APP_BFF_ENDPOINT: localhost:8080
     image: ci.odd-e.com:5000/quote-of-the-day_react
@@ -13,7 +13,7 @@ services:
       - bff
   bff:
     build:
-      context: ../quote-of-the-day_bff
+      context: ../../../quote-of-the-day_bff
     image: ci.odd-e.com:5000/bff
     ports:
       - "8080:8080"
@@ -21,7 +21,7 @@ services:
       - backend
   backend:
     build:
-      context: ../quote-of-the-day_backend
+      context: ../../../quote-of-the-day_backend
     image: ci.odd-e.com:5000/backend
     links:
       - mongo
