@@ -23,9 +23,16 @@ services:
     build:
       context: ../../../quote-of-the-day_backend
     image: ci.odd-e.com:5000/backend
+    ports:
+      - "8081:8080"
     links:
       - mongo
   mongo:
     image: mongo
+    volumes:
+      - "mongodata:/data"
     ports:
       - "27017:27017"
+
+volumes:
+  mongodata:
