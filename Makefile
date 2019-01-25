@@ -13,8 +13,8 @@ run-test:
 shutdown-test:
 	docker-compose -f docker-compose/test/docker-compose.yml down
 
-build:
-	docker-compose build
+build-test:
+	docker-compose -f docker-compose/test/docker-compose.yml build
 
 deploy-dev:
 	docker-compose -f docker-compose/dev/docker-compose.yml up
